@@ -4,7 +4,7 @@ export default {
   production: {
     client: 'pg',
     connection: {
-      connectionString: "postgresql/connection/string",
+      connectionString: "",
       // ssl: { rejectUnauthorized: false },
     },
   },
@@ -13,7 +13,7 @@ export default {
         connection: {
           host: 'localhost',
           user: 'user',
-          password: 'user',
+          password: 'pw',
           database: 'fc',
         },
       },

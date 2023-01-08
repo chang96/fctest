@@ -37,7 +37,7 @@ $ yarn install
 
 ## Running the app
 
-with postgresql server running 
+with postgresql server running, configure the knexfile.ts with your local postgresql database. 
 ```bash
 $ yarn run migrate
 

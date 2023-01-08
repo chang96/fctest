@@ -44,7 +44,7 @@ export class Brands {
         
         ): Promise<{}> {
         try {
-            let createdAddon = await this.AddonServices.createAddons({...body}, {brandId:brandId})
+            let createdAddon = await this.AddonServices.createAddons({...body}, {brandId: Number(brandId)})
             return createdAddon
         } catch (error) {
             return {
@@ -52,6 +52,7 @@ export class Brands {
             }
         }
     }
+    
 
     @Patch(":addonId")
     async patchAnAddon(

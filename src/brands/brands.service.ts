@@ -11,11 +11,11 @@ export class AddonServices {
         const brandFound =  await Brand.query().where('id', '=', brandId).first()
         if(!brandFound){
             let hopefullyRandom = `foodcourt-${Math.ceil(Math.random()*Math.random()*1000)}`
-            let newBrand = await Brand.query().insert({name: hopefullyRandom})
-            const created = await Addon.query().insert({...details, brand_id: newBrand.$id()});
+            let newBrand = await Brand.query().insert({name: hopefullyRandom, id:brandId})
+            const created = await Addon.query().insert({...details, brand_id: Number(newBrand.$id())});
             return created
         }
-        const created = await Addon.query().insert({...details, brand_id: brandFound.$id()});
+        const created = await Addon.query().insert({...details, brand_id: Number(brandFound.$id())});
         return created
     } catch (error) {
         throw {Error: error}
@@ -70,7 +70,7 @@ async createCategory(brandId, details): Promise<Category>{
         const brandFound =  await Brand.query().where('id', '=', brandId).first()
         if(!brandFound){
             let hopefullyRandom = `foodcourt-${Math.ceil(Math.random()*Math.random()*1000)}`
-            let newBrand = await Brand.query().insert({name: hopefullyRandom})
+            let newBrand = await Brand.query().insert({name: hopefullyRandom, id: brandId})
             const created = await Category.query().insert({...details, brand_id: newBrand.$id()});
             return created
         }

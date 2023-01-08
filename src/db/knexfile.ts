@@ -4,10 +4,8 @@ export default {
   production: {
     client: 'pg',
     connection: {
-      host: 'localhost',
-      user: 'rahmanorewole',
-      password: 'chang',
-      database: 'foodcourt',
+      connectionString: "postgres://ecortofr:XbHj5fthghNSD9i7DTb9uQV5D5Xv0fX6@mel.db.elephantsql.com/ecortofr",
+      // ssl: { rejectUnauthorized: false },
     },
   },
     development: {

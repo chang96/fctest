@@ -1,41 +1,85 @@
 import { Controller, Get, Post, Param, Body, Patch, Delete } from "@nestjs/common";
+import { get } from "http";
+import { AddonServices } from "./brands.service";
 
 @Controller("brands/:brandId/addons")
 export class Brands {
+    constructor(private readonly AddonServices: AddonServices){
+        
+    }
     @Get()
-    getAddons(
+    async getAddons(
         @Param("brandId") brandId: string,
-    ): string[] {
-        return ["", "", brandId]
+    ): Promise<{}|[]> {
+        try {
+            let addon = await this.AddonServices.getAddons(undefined, brandId)
+            return addon? addon : []
+        } catch (error) {
+            return {
+                Error: error
+            }
+        }
     }
 
     @Get(":addonId")
-    getAnAddon(
-        @Param("addonId") addonId: string
-    ): {name: string, description: string, price, category:string}{
-        return {name: addonId, description:"ofada ni", price:"100", category:"rice"}
+    async getAnAddon(
+        @Param("addonId") addonId: string,
+        @Param("brandId") brandId: string
+    ): Promise <{}>{
+        try {
+            let addon = await this.AddonServices.getAddons(addonId, brandId)
+            return addon? addon : []
+        } catch (error) {
+            return {
+                Error: error
+            }
+        }
+         
     }
 
     @Post()
-    createAddon(
-        @Param("brandId") brandId: string,
+    async createAddon(
+        @Param("brandId") brandId: number,
         @Body() body: {name: string, description: string, price: string, category: string}
         
-        ): string {
-        return "Addon Created";
+        ): Promise<{}> {
+        try {
+            let createdAddon = await this.AddonServices.createAddons({...body}, {brandId:brandId})
+            return createdAddon
+        } catch (error) {
+            return {
+                Error: error
+            }
+        }
     }
 
-    @Patch()
-    patchAnAddon(
+    @Patch(":addonId")
+    async patchAnAddon(
         @Param("brandId") brandId: string,
+        @Param("addonId") addonId: string,
         @Body() body: {}
-    ): {} {
-        return {}
+    ): Promise<{}> {
+        try {
+            let patchedAddon = await this.AddonServices.patchAddon(brandId, addonId, body)
+            return patchedAddon
+        } catch (error) {
+            return {
+                Error: error
+            }
+        }
     }
 
-    @Delete()
-    deleteAnAddon(): {}{
-        return {}
+    @Delete(":addonId")
+    async deleteAnAddon(
+        @Param("brandId") brandId: string,
+        @Param("addonId") addonId: string,
+    ): Promise<any>{
+        try {
+            let deleting = await this.AddonServices.deleteAddon(brandId, addonId)
+            return {"deletedRows": deleting}
+        } catch (error) {
+            return {Error: error}
+        }
     }
     
 }
@@ -43,10 +87,18 @@ export class Brands {
 
 @Controller("brands/:brandId/addon-categories")
 export class Category {
+    constructor(private readonly AddonServices: AddonServices){}
     @Post()
-    createCategory(
-        @Body() body: any
-    ): string {
-        return ""
+    async createCategory(
+        @Param("brandId") brandId :string,
+        @Body() body :any
+    ): Promise<{}> {
+        try {
+            return this.AddonServices.createCategory(brandId, body)
+        } catch (error) {
+            return {
+                Error: error
+            }
+        }
     }
 }

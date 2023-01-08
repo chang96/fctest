@@ -1,6 +1,13 @@
 import { knexSnakeCaseMappers } from "objection";
 
 export default {
+  production: {
+    client: 'pg',
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+    },
+  },
     development: {
         client: 'pg',
         connection: {
@@ -15,7 +22,8 @@ export default {
         max:10
     },
     migrations: {
-      tableName: "knex_migrations"
+      tableName: "knex_migrations",
+      directory: "./migrations"
     },
     seeds: {
       directory:"./seeds"

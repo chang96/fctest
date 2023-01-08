@@ -4,7 +4,7 @@ export default {
   production: {
     client: 'pg',
     connection: {
-      connectionString: "postgres://ecortofr:XbHj5fthghNSD9i7DTb9uQV5D5Xv0fX6@mel.db.elephantsql.com/ecortofr",
+      connectionString: "postgresql/connection/string",
       // ssl: { rejectUnauthorized: false },
     },
   },
@@ -12,9 +12,9 @@ export default {
         client: 'pg',
         connection: {
           host: 'localhost',
-          user: 'rahmanorewole',
-          password: 'chang',
-          database: 'foodcourt',
+          user: 'user',
+          password: 'user',
+          database: 'fc',
         },
       },
     pool: {

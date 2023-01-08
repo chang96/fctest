@@ -12,7 +12,7 @@
     "make-seed":"npx knex seed:make dev --knexfile ./src/db/knexfile.ts",
     "seed":"npx knex seed:run --knexfile ./src/db/knexfile.ts",
     "down":"npx knex migrate:down --knexfile ./src/db/knexfile.ts",
-    "start": "node dist/main",
+    "start": "NODE_ENV=production node dist/main",
     "start:dev": "npx nest start --watch",
     "start:debug": "npx nest start --debug --watch",
     "start:prod": "node dist/main",

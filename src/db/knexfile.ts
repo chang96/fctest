@@ -4,8 +4,10 @@ export default {
   production: {
     client: 'pg',
     connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+      host: 'localhost',
+      user: 'rahmanorewole',
+      password: 'chang',
+      database: 'foodcourt',
     },
   },
     development: {
